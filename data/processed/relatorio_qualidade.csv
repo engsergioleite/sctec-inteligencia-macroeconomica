@@ -1,0 +1,6 @@
+codigo_serie,coluna,linhas_brutas,nulos_removidos,duplicados_removidos,linhas_finais
+432,selic_meta,1826,0,0,1826
+433,ipca_mensal,60,0,0,60
+13522,ipca_12m,60,0,0,60
+1,dolar_ptax,1255,0,0,1255
+24364,ibc_br,60,0,0,60
