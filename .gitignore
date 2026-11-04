@@ -1,0 +1,17 @@
+# Ambiente virtual
+.venv/
+venv/
+
+# Credenciais (nunca sobem)
+.streamlit/secrets.toml
+.env
+
+# Caches do Python e do Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Arquivos do sistema e do editor
+.vscode/
+Thumbs.db
+.DS_Store
