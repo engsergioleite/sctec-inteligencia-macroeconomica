@@ -157,18 +157,18 @@ with aba2:
     meses_acima = int(filtrado["dolar_acima_media"].sum())
     st.markdown(f"**Insight:** o dólar ficou acima da média do quinquênio (R$ {br(media_dolar, 2)}) "
                 f"em **{meses_acima} de {len(filtrado)} meses** do período filtrado.")
-    fig2 = px.line(filtrado, x="data_ref", y="dolar_ptax", labels={"dolar_ptax": "R$/US$"},
+    fig2 = px.line(filtrado, x="data_ref", y="dolar_ptax", labels={"dolar_ptax": "Reais por Dolar"},
                    color_discrete_sequence=[COR_DOLAR])
     fig2.add_hline(y=media_dolar, line_dash="dash", line_color="gray",
                    annotation_text=f"Média 2019-2023: R$ {br(media_dolar, 2)}")
-    st.plotly_chart(layout_padrao(fig2, "Dólar PTAX (média mensal) e média do quinquênio", "R$ por US$"),
+    st.plotly_chart(layout_padrao(fig2, "Dólar PTAX (média mensal) e média do quinquênio", "Reais por Dolar"),
                     width="stretch")
 
     fig3 = px.scatter(filtrado_ciclo, x="dolar_ptax", y="ipca_12m", color=filtrado_ciclo["ano"].astype(str),
                       size="selic_meta", hover_data={"data_ref": "|%m/%Y"},
-                      labels={"dolar_ptax": "Dólar PTAX (R$/US$)", "ipca_12m": "IPCA 12M (%)",
+                      labels={"dolar_ptax": "Dólar PTAX (Reais por Dolar)", "ipca_12m": "IPCA 12M (%)",
                               "color": "Ano", "selic_meta": "Selic (% a.a.)"})
-    fig3.update_layout(xaxis_title="Dólar PTAX (R$ por US$)")
+    fig3.update_layout(xaxis_title="Dólar PTAX (Reais por Dolar)")
     st.plotly_chart(layout_padrao(fig3, "Dólar vs. IPCA 12M (tamanho = Selic)", "IPCA 12M (%)"),
                     width="stretch")
     st.caption("Filtrado também pelo ciclo da Selic. A proximidade dos pontos indica associação, "
