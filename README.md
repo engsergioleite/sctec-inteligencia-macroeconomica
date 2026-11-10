@@ -105,11 +105,24 @@ Após a agregação mensal, a base consolidada ficou com 60 meses e nenhum valor
 4. **Atividade:** entre janeiro de 2019 e dezembro de 2023, o IBC-Br cresceu 8,2%, mesmo atravessando o maior ciclo de alta da Selic do período, com a queda forte concentrada no choque da pandemia, em 2020.
 5. **Correlações:** os pares mais correlacionados foram Juro real × Selic (0,78), esperado, já que o juro real é calculado a partir da Selic, e Selic × IBC-Br (0,73). Este último reflete uma tendência comum, com recuperação da atividade após a pandemia ao mesmo tempo que a Selic subia, e não indica que juros altos estimulem a economia. O dólar quase não se correlacionou com a Selic (0,04) nem com o IBC-Br (-0,02).
 
+**Contexto da pandemia de COVID-19**
+
+As fases da pandemia coincidem com os principais movimentos das séries. O painel mostra essas coincidências no tempo, mas não isola o efeito da pandemia de outros fatores.
+
+| Período      | Fato da pandemia                                                                               | O que aparece nos dados                                                             |
+| ------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Mar/2020      | OMS declara pandemia; estados brasileiros iniciam quarentenas                                  | O dólar passa a ficar acima da média do período a partir de abril de 2020        |
+| Abr–Mai/2020 | Auge das restrições da primeira onda                                                         | Pico do dólar, cerca de 5,65 reais em maio de 2020, e queda mais forte do IBC-Br   |
+| Ago/2020      | Reabertura gradual                                                                             | Selic no mínimo histórico de 2%                                                   |
+| 2º sem./2020 | Retomada da economia com cadeias globais desorganizadas                                        | IPCA em alta e juro real negativo                                                   |
+| Mar–Abr/2021 | Segunda onda; abril de 2021 é o mês mais letal no Brasil, com recorde de 4.249 mortes em 24h | Juro real perto do mínimo do período (-4,35%) e início do ciclo de alta da Selic |
+| 2022          | Fim das restrições                                                                           | Selic chega a 13,75% e o juro real volta a ser positivo                             |
+
 ## 8. Discussão e limitações
 
 - São apenas 60 observações mensais; correlações nessa amostra são instáveis.
 - **Correlação não implica causalidade.** O app mostra associações, não efeitos causais.
-- O choque da pandemia (2020) distorce médias e correlações do período.
+- O choque da pandemia de COVID-19 (quarentenas de 2020 e pico de mortes em abril de 2021) distorce médias e correlações do período, e o painel não isola o efeito da pandemia de outros fatores, como juros globais e preços de commodities.
 - Juro real ex-post usa a inflação passada; não representa o juro real esperado.
 - O IBC-Br é revisado periodicamente pelo BCB.
 - O dólar mensal é uma média; picos diários não aparecem.
@@ -124,7 +137,7 @@ Após a agregação mensal, a base consolidada ficou com 60 meses e nenhum valor
 
 **Link:** [Abrir o app](https://sctec-inteligencia-macroeconomica.streamlit.app)
 
-![Visão geral](docs/img/app_visao_geral.png)	
+![Visão geral](docs/img/app_visao_geral.png)
 
 **Guia de navegação:**
 
@@ -186,8 +199,10 @@ Projeto Avaliativo Final – Visualização de Dados e Business Intelligence –
 - Documentação do Streamlit: https://docs.streamlit.io
 - Documentação do Plotly: https://plotly.com/python
 - Documentação do Supabase: https://supabase.com/docs
+- Correio Braziliense – Brasil bate recorde de 4.249 mortes por covid em 24h (abril de 2021): https://www.correiobraziliense.com.br/brasil/2021/04/4917167-novo-recorde-de-mortesem-apenas-24h-4.html
+- Metrópoles – Abril de 2021 é o mês mais letal da pandemia: https://www.metropoles.com/brasil/abril-ja-registra-mais-de-70-mil-mortes-e-e-mes-mais-letal-da-pandemia
 
-**Uso de Inteligência Artificial no desenvolvimento**
+### Uso de Inteligência Artificial no desenvolvimento
 
 **O que eu fiz**
 
@@ -198,7 +213,9 @@ Projeto Avaliativo Final – Visualização de Dados e Business Intelligence –
 - Diagnostiquei e corrigi problemas reais: o driver do PostgreSQL alterado na versão nova do SQLAlchemy, os rótulos com cifrão interpretados como fórmula pelo Plotly e o kernel errado do notebook.
 
 **Como usei a IA**
+
 O projeto foi desenvolvido com apoio de IA generativa (Claude, da Anthropic), utilizada como assistente técnico: planejamento das etapas, geração da versão inicial do código do ETL e do Data App, explicação de conceitos e revisão dos textos deste README. Todo o código foi executado, testado e ajustado por mim utilizando a IA como apoio e com os dados reais, e as análises e interpretações dos resultados descritas neste README são de minha autoria com apoio da IA para edição de textos.
 
 **O que aprendi**
+
 Manipulação de dados com pandas, visualização com Plotly, ambientes virtuais, GitFlow, gestão de credenciais, cache no Streamlit, banco de dados na nuvem e a diferença entre correlação e causalidade.
