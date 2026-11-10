@@ -8,7 +8,7 @@
 
 ## 1. Resumo executivo
 
-[3 linhas: o que o painel mostra e qual o principal achado em números. Preencher depois de rodar o app com os dados reais.]
+Painel interativo que analisa como a política de juros do Banco Central se relacionou com inflação, câmbio e atividade econômica entre 2019 e 2023. O Brasil passou 20 meses com juro real negativo entre 2020 e 2022, e em 2023 o juro real chegou a 10,27% a.a., o maior do período.
 
 ## 2. Contexto de negócio e pergunta orientadora
 
@@ -26,13 +26,13 @@ Perguntas de negócio respondidas pelo app:
 
 ## 3. Fonte de dados e licença
 
-| Código SGS | Série | Frequência | Unidade |
-| --- | --- | --- | --- |
-| 432 | Meta Selic | Diária | % a.a. |
-| 433 | IPCA mensal | Mensal | % |
-| 13522 | IPCA acumulado 12 meses | Mensal | % |
-| 1 | Dólar comercial (venda) | Diária (dias úteis) | R$/US$ |
-| 24364 | IBC-Br dessazonalizado | Mensal | Índice |
+| Código SGS | Série                   | Frequência           | Unidade  |
+| ----------- | ------------------------ | --------------------- | -------- |
+| 432         | Meta Selic               | Diária               | % a.a.   |
+| 433         | IPCA mensal              | Mensal                | %        |
+| 13522       | IPCA acumulado 12 meses  | Mensal                | %        |
+| 1           | Dólar comercial (venda) | Diária (dias úteis) | R$/US$ |
+| 24364       | IBC-Br dessazonalizado   | Mensal                | Índice  |
 
 - **Fonte:** API pública do Sistema Gerenciador de Séries Temporais (SGS) do Banco Central do Brasil.
 - **Período:** 01/01/2019 a 31/12/2023.
@@ -54,47 +54,55 @@ API SGS ──► data/raw (5 CSVs brutos) ──► limpeza e tipagem ──►
 
 **Fórmula do juro real ex-post:** `((1 + Selic/100) / (1 + IPCA12M/100) − 1) × 100`
 
-**Relatório de qualidade:** [colar aqui a tabela impressa pelo pipeline com linhas brutas, nulos e duplicados de cada série]
+**Relatório de qualidade:**
+
+| Série             | Linhas brutas | Nulos removidos | Duplicados removidos | Linhas finais |
+| ------------------ | ------------- | --------------- | -------------------- | ------------- |
+| 432 – Selic Meta  | 1826          | 0               | 0                    | 1826          |
+| 433 – IPCA mensal | 60            | 0               | 0                    | 60            |
+| 13522 – IPCA 12M  | 60            | 0               | 0                    | 60            |
+| 1 – Dólar PTAX   | 1255          | 0               | 0                    | 1255          |
+| 24364 – IBC-Br    | 60            | 0               | 0                    | 60            |
+
+Após a agregação mensal, a base consolidada ficou com 60 meses e nenhum valor nulo nas séries principais. A coluna `dolar_var_12m` tem 12 nulos em 2019 por definição, pois não existe mês de comparação.
 
 ## 5. Dicionário de dados
 
-| Coluna | Tipo | Significado | Regra de cálculo |
-| --- | --- | --- | --- |
-| data_ref | datetime | Primeiro dia do mês de referência | Mês das séries (AAAA-MM-01) |
-| ano | int | Ano de referência | Extraído de `data_ref` |
-| selic_meta | float | Meta Selic vigente no fim do mês (% a.a.) | Série 432, último valor do mês |
-| ipca_mensal | float | Inflação do mês (%) | Série 433 |
-| ipca_12m | float | Inflação acumulada em 12 meses (%) | Série 13522 |
-| dolar_ptax | float | Dólar médio do mês (R$/US$) | Série 1, média mensal |
-| ibc_br | float | Índice de atividade econômica dessazonalizado | Série 24364 |
-| juro_real_ex_post | float | Juro real efetivo (% a.a.) | Fórmula acima |
-| dolar_var_12m | float | Variação do dólar em 12 meses (%) | Variação contra 12 meses antes; nulo em 2019 por definição |
-| dolar_acima_media | bool | Dólar acima da média 2019–2023 | `dolar_ptax` > média do quinquênio |
-| ciclo_selic | str | Alta, Corte ou Estável | Variação da Selic contra o mês anterior |
+| Coluna            | Tipo     | Significado                                     | Regra de cálculo                                              |
+| ----------------- | -------- | ----------------------------------------------- | -------------------------------------------------------------- |
+| data_ref          | datetime | Primeiro dia do mês de referência             | Mês das séries (AAAA-MM-01)                                  |
+| ano               | int      | Ano de referência                              | Extraído de `data_ref`                                      |
+| selic_meta        | float    | Meta Selic vigente no fim do mês (% a.a.)      | Série 432, último valor do mês                              |
+| ipca_mensal       | float    | Inflação do mês (%)                          | Série 433                                                     |
+| ipca_12m          | float    | Inflação acumulada em 12 meses (%)            | Série 13522                                                   |
+| dolar_ptax        | float    | Dólar médio do mês (R$/US$)                | Série 1, média mensal                                        |
+| ibc_br            | float    | Índice de atividade econômica dessazonalizado | Série 24364                                                   |
+| juro_real_ex_post | float    | Juro real efetivo (% a.a.)                      | Fórmula acima                                                 |
+| dolar_var_12m     | float    | Variação do dólar em 12 meses (%)            | Variação contra 12 meses antes; nulo em 2019 por definição |
+| dolar_acima_media | bool     | Dólar acima da média 2019–2023               | `dolar_ptax` > média do quinquênio                         |
+| ciclo_selic       | str      | Alta, Corte ou Estável                         | Variação da Selic contra o mês anterior                     |
 
 ## 6. Tecnologias e bibliotecas
 
-| Ferramenta | Uso | Por quê |
-| --- | --- | --- |
-| Python 3.11+ | Linguagem do projeto | Padrão de mercado em dados |
-| requests | Chamadas à API do BCB | Simples e com controle de timeout |
-| pandas / numpy | Limpeza, agregação e cálculos | Séries temporais com `resample` |
-| SQLAlchemy + psycopg2 | Carga no PostgreSQL | Integração direta com `DataFrame.to_sql` |
-| Supabase | PostgreSQL na nuvem | Plano gratuito e acesso via pooler IPv4 |
-| Streamlit | Data App | Interface interativa só com Python |
-| Plotly Express / Graph Objects | Gráficos | Interatividade (hover, zoom) |
-| Streamlit Community Cloud | Deploy | Publicação gratuita integrada ao GitHub |
-| Trello / Git / GitHub | Gestão e versionamento | Kanban e GitFlow exigidos no projeto |
+| Ferramenta                     | Uso                              | Por quê                                     |
+| ------------------------------ | -------------------------------- | -------------------------------------------- |
+| Python 3.11+                   | Linguagem do projeto             | Padrão de mercado em dados                  |
+| requests                       | Chamadas à API do BCB           | Simples e com controle de timeout            |
+| pandas / numpy                 | Limpeza, agregação e cálculos | Séries temporais com `resample`           |
+| SQLAlchemy + psycopg2          | Carga no PostgreSQL              | Integração direta com `DataFrame.to_sql` |
+| Supabase                       | PostgreSQL na nuvem              | Plano gratuito e acesso via pooler IPv4      |
+| Streamlit                      | Data App                         | Interface interativa só com Python          |
+| Plotly Express / Graph Objects | Gráficos                        | Interatividade (hover, zoom)                 |
+| Streamlit Community Cloud      | Deploy                           | Publicação gratuita integrada ao GitHub    |
+| Trello / Git / GitHub          | Gestão e versionamento          | Kanban e GitFlow exigidos no projeto         |
 
 ## 7. Principais resultados
 
-[Para cada pergunta: 1 frase com número real + print do gráfico. Ex.: "O juro real atingiu X% a.a. em MM/AAAA, o maior do período."]
-
-1. **Política monetária:** …
-2. **Câmbio:** …
+1. **Política monetária:** a SELIC foi de 2% a 13,75%, o juro real ficou negativo de meados de 2020 ao inicio de 2022 (20 meses. com mínimo de -4,35% em 2021), e em 2023 chegou a 10,27%.
+2. **Câmbio:** o dólar médio de 2019 a 2023 foi R$5,65 em maio de 2020 e dezembro de 2021, e voltou abaixo da média em abril de 2022 e no meio de 2023.
 3. **Câmbio × inflação:** …
 4. **Atividade:** …
-5. **Correlações:** …
+5. **Correlações:** os pares mais correlacionados foram Juro real × Selic (0,78), esperado, já que o juro real é calculado a partir da Selic, e Selic × IBC-Br (0,73). Este último reflete uma tendência comum, com recuperação da atividade após a pandemia ao mesmo tempo que a Selic subia, e não indica que juros altos estimulem a economia. O dólar quase não se correlacionou com a Selic (0,04) nem com o IBC-Br (-0,02).
 
 ## 8. Discussão e limitações
 
