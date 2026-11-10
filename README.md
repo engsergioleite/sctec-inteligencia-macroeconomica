@@ -56,6 +56,16 @@ API SGS ──► data/raw (5 CSVs brutos) ──► limpeza e tipagem ──►
 
 **Relatório de qualidade:**
 
+| Série             | Linhas brutas | Nulos removidos | Duplicados removidos | Linhas finais |
+| ------------------ | ------------- | --------------- | -------------------- | ------------- |
+| 432 – Selic Meta  | 1826          | 0               | 0                    | 1826          |
+| 433 – IPCA mensal | 60            | 0               | 0                    | 60            |
+| 13522 – IPCA 12M  | 60            | 0               | 0                    | 60            |
+| 1 – Dólar PTAX   | 1255          | 0               | 0                    | 1255          |
+| 24364 – IBC-Br    | 60            | 0               | 0                    | 60            |
+
+Após a agregação mensal, a base consolidada ficou com 60 meses e nenhum valor nulo nas séries principais. A coluna `dolar_var_12m` tem 12 nulos em 2019 por definição, pois não existe mês de comparação.
+
 ## 5. Dicionário de dados
 
 | Coluna            | Tipo     | Significado                                     | Regra de cálculo                                              |
@@ -88,9 +98,7 @@ API SGS ──► data/raw (5 CSVs brutos) ──► limpeza e tipagem ──►
 
 ## 7. Principais resultados
 
-[Para cada pergunta: 1 frase com número real + print do gráfico. Ex.: "O juro real atingiu X% a.a. em MM/AAAA, o maior do período."]
-
-1. **Política monetária: a SELIC doi de 2% a 13,75%, o juro real ficou negativo de meados de 2020 ao inicio de 2022 (20 meses. com mínimo de -4,35% em 2021), e em 2023 chegou a 10,27%.
+1. **Política monetária:** a SELIC foi de 2% a 13,75%, o juro real ficou negativo de meados de 2020 ao inicio de 2022 (20 meses. com mínimo de -4,35% em 2021), e em 2023 chegou a 10,27%.
 2. **Câmbio:** …
 3. **Câmbio × inflação:** …
 4. **Atividade:** …
