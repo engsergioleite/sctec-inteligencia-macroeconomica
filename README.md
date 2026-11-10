@@ -1,4 +1,3 @@
-
 # Inteligência Macroeconômica do Brasil (2019–2023)
 
 > Data App em Streamlit que analisa Selic, inflação, câmbio e atividade econômica com dados oficiais do Banco Central.
@@ -100,10 +99,21 @@ Após a agregação mensal, a base consolidada ficou com 60 meses e nenhum valor
 ## 7. Principais resultados
 
 1. **Política monetária:** a Selic foi de 2% a 13,75%; o juro real ficou negativo de meados de 2020 ao início de 2022 (20 meses, com mínimo de -4,35% em 2021) e em 2023 chegou a 10,27% a.a.
+
+![Política monetária: Selic, IPCA 12M e juro real](docs/img/grafico_politica_monetaria.png)
+
 2. **Câmbio:** o dólar médio de 2019 a 2023 foi de 4,93 reais. Ele ficou acima dessa média em 39 dos 60 meses, a partir de abril de 2020, com picos de cerca de 5,65 reais em maio de 2020 e dezembro de 2021, e voltou abaixo da média em abril de 2022 e no meio de 2023.
+
+![Dólar PTAX e média do período](docs/img/grafico_dolar.png)
+
 3. **Câmbio × inflação:** a correlação de Pearson entre o dólar e o IPCA 12M foi de 0,36, positiva mas fraca. O dólar disparou em 2020, mas a inflação só acelerou com força em 2021, o que sugere uma relação defasada no tempo, e não simultânea. Correlação não implica causalidade.
 4. **Atividade:** entre janeiro de 2019 e dezembro de 2023, o IBC-Br cresceu 8,2%, mesmo atravessando o maior ciclo de alta da Selic do período, com a queda forte concentrada no choque da pandemia, em 2020.
+
+![IBC-Br e ciclos da Selic](docs/img/grafico_ibc_br.png)
+
 5. **Correlações:** os pares mais correlacionados foram Juro real × Selic (0,78), esperado, já que o juro real é calculado a partir da Selic, e Selic × IBC-Br (0,73). Este último reflete uma tendência comum, com recuperação da atividade após a pandemia ao mesmo tempo que a Selic subia, e não indica que juros altos estimulem a economia. O dólar quase não se correlacionou com a Selic (0,04) nem com o IBC-Br (-0,02).
+
+![Correlação de Pearson entre as variáveis](docs/img/grafico_correlacao.png)
 
 **Contexto da pandemia de COVID-19**
 
