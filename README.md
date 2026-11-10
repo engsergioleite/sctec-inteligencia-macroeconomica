@@ -1,8 +1,9 @@
+
 # Inteligência Macroeconômica do Brasil (2019–2023)
 
 > Data App em Streamlit que analisa Selic, inflação, câmbio e atividade econômica com dados oficiais do Banco Central.
 
-**🔗 App:** [[sctec-inteligencia-macroeconomica.streamlit.app](https://sctec-inteligencia-macroeconomica.streamlit.app)] · **🎥 Vídeo:** [LINK_DO_VIDEO] · **📋 Trello:** [[trello.com/b/80Bk0Kbb/projeto-final-sctec-inteligencia-macroeconomica](https://trello.com/b/80Bk0Kbb/projeto-final-sctec-inteligencia-macroeconomica)]
+**🔗 App:** [Abrir o app](https://sctec-inteligencia-macroeconomica.streamlit.app) · **🎥 Vídeo:** [LINK_DO_VIDEO] · **📋 Trello:** [Quadro Kanban](https://trello.com/b/80Bk0Kbb/projeto-final-sctec-inteligencia-macroeconomica)
 
 ---
 
@@ -26,13 +27,13 @@ Perguntas de negócio respondidas pelo app:
 
 ## 3. Fonte de dados e licença
 
-| Código SGS | Série                   | Frequência           | Unidade  |
-| ----------- | ------------------------ | --------------------- | -------- |
-| 432         | Meta Selic               | Diária               | % a.a.   |
-| 433         | IPCA mensal              | Mensal                | %        |
-| 13522       | IPCA acumulado 12 meses  | Mensal                | %        |
-| 1           | Dólar comercial (venda) | Diária (dias úteis) | R$/US$ |
-| 24364       | IBC-Br dessazonalizado   | Mensal                | Índice  |
+| Código SGS | Série                   | Frequência           | Unidade          |
+| ----------- | ------------------------ | --------------------- | ---------------- |
+| 432         | Meta Selic               | Diária               | % a.a.           |
+| 433         | IPCA mensal              | Mensal                | %                |
+| 13522       | IPCA acumulado 12 meses  | Mensal                | %                |
+| 1           | Dólar comercial (venda) | Diária (dias úteis) | reais por dólar |
+| 24364       | IBC-Br dessazonalizado   | Mensal                | Índice          |
 
 - **Fonte:** API pública do Sistema Gerenciador de Séries Temporais (SGS) do Banco Central do Brasil.
 - **Período:** 01/01/2019 a 31/12/2023.
@@ -75,7 +76,7 @@ Após a agregação mensal, a base consolidada ficou com 60 meses e nenhum valor
 | selic_meta        | float    | Meta Selic vigente no fim do mês (% a.a.)      | Série 432, último valor do mês                              |
 | ipca_mensal       | float    | Inflação do mês (%)                          | Série 433                                                     |
 | ipca_12m          | float    | Inflação acumulada em 12 meses (%)            | Série 13522                                                   |
-| dolar_ptax        | float    | Dólar médio do mês (R$/US$)                | Série 1, média mensal                                        |
+| dolar_ptax        | float    | Dólar médio do mês (reais por dólar)        | Série 1, média mensal                                        |
 | ibc_br            | float    | Índice de atividade econômica dessazonalizado | Série 24364                                                   |
 | juro_real_ex_post | float    | Juro real efetivo (% a.a.)                      | Fórmula acima                                                 |
 | dolar_var_12m     | float    | Variação do dólar em 12 meses (%)            | Variação contra 12 meses antes; nulo em 2019 por definição |
@@ -98,10 +99,10 @@ Após a agregação mensal, a base consolidada ficou com 60 meses e nenhum valor
 
 ## 7. Principais resultados
 
-1. **Política monetária:** a SELIC foi de 2% a 13,75%, o juro real ficou negativo de meados de 2020 ao inicio de 2022 (20 meses. com mínimo de -4,35% em 2021), e em 2023 chegou a 10,27%.
-2. **Câmbio:** o dólar médio de 2019 a 2023 foi R$5,65 em maio de 2020 e dezembro de 2021, e voltou abaixo da média em abril de 2022 e no meio de 2023.
-3. **Câmbio × inflação:** …
-4. **Atividade:** …
+1. **Política monetária:** a Selic foi de 2% a 13,75%; o juro real ficou negativo de meados de 2020 ao início de 2022 (20 meses, com mínimo de -4,35% em 2021) e em 2023 chegou a 10,27% a.a.
+2. **Câmbio:** o dólar médio de 2019 a 2023 foi de 4,93 reais. Ele ficou acima dessa média em 39 dos 60 meses, a partir de abril de 2020, com picos de cerca de 5,65 reais em maio de 2020 e dezembro de 2021, e voltou abaixo da média em abril de 2022 e no meio de 2023.
+3. **Câmbio × inflação:** a correlação de Pearson entre o dólar e o IPCA 12M foi de 0,36, positiva mas fraca. O dólar disparou em 2020, mas a inflação só acelerou com força em 2021, o que sugere uma relação defasada no tempo, e não simultânea. Correlação não implica causalidade.
+4. **Atividade:** entre janeiro de 2019 e dezembro de 2023, o IBC-Br cresceu 8,2%, mesmo atravessando o maior ciclo de alta da Selic do período, com a queda forte concentrada no choque da pandemia, em 2020.
 5. **Correlações:** os pares mais correlacionados foram Juro real × Selic (0,78), esperado, já que o juro real é calculado a partir da Selic, e Selic × IBC-Br (0,73). Este último reflete uma tendência comum, com recuperação da atividade após a pandemia ao mesmo tempo que a Selic subia, e não indica que juros altos estimulem a economia. O dólar quase não se correlacionou com a Selic (0,04) nem com o IBC-Br (-0,02).
 
 ## 8. Discussão e limitações
@@ -121,9 +122,9 @@ Após a agregação mensal, a base consolidada ficou com 60 meses e nenhum valor
 
 ## 10. Demonstração do Data App
 
-**Link:** [LINK_DO_STREAMLIT]
+**Link:** [Abrir o app](https://sctec-inteligencia-macroeconomica.streamlit.app)
 
-![Visão geral](docs/img/app_visao_geral.png)
+![Visão geral](docs/img/app_visao_geral.png)	
 
 **Guia de navegação:**
 
@@ -165,8 +166,8 @@ streamlit run app.py
 
 ## 13. Gestão ágil e links do projeto
 
-- **Trello (Kanban):** [LINK_DO_TRELLO]
-- **App em produção:** [LINK_DO_STREAMLIT]
+- **Trello (Kanban):** [Quadro do projeto](https://trello.com/b/80Bk0Kbb/projeto-final-sctec-inteligencia-macroeconomica)
+- **App em produção:** [Abrir o app](https://sctec-inteligencia-macroeconomica.streamlit.app)
 - **Vídeo de apresentação:** [LINK_DO_VIDEO]
 
 ![Quadro do Trello](docs/img/trello.png)
@@ -188,4 +189,16 @@ Projeto Avaliativo Final – Visualização de Dados e Business Intelligence –
 
 **Uso de Inteligência Artificial no desenvolvimento**
 
-[Descrever com honestidade: quais partes tiveram apoio de IA (ex.: estrutura do código, revisão, texto do README), o que você revisou, testou e adaptou, e o que aprendeu.]
+**O que eu fiz**
+
+- Executei o pipeline de ETL com os dados reais da API do Banco Central e validei o relatório de qualidade.
+- Construí o notebook de análise exploratória com pandas e Plotly e interpretei os resultados das cinco perguntas de negócio, incluindo a identificação de correlação espúria entre Selic e IBC-Br.
+- Criei e configurei o banco PostgreSQL no Supabase, com Row Level Security e credenciais fora do repositório.
+- Publiquei o app no Streamlit Community Cloud, configurei os secrets e organizei a gestão no Trello e no GitHub.
+- Diagnostiquei e corrigi problemas reais: o driver do PostgreSQL alterado na versão nova do SQLAlchemy, os rótulos com cifrão interpretados como fórmula pelo Plotly e o kernel errado do notebook.
+
+**Como usei a IA**
+O projeto foi desenvolvido com apoio de IA generativa (Claude, da Anthropic), utilizada como assistente técnico: planejamento das etapas, geração da versão inicial do código do ETL e do Data App, explicação de conceitos e revisão dos textos deste README. Todo o código foi executado, testado e ajustado por mim utilizando a IA como apoio e com os dados reais, e as análises e interpretações dos resultados descritas neste README são de minha autoria com apoio da IA para edição de textos.
+
+**O que aprendi**
+Manipulação de dados com pandas, visualização com Plotly, ambientes virtuais, GitFlow, gestão de credenciais, cache no Streamlit, banco de dados na nuvem e a diferença entre correlação e causalidade.
