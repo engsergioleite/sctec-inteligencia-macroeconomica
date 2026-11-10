@@ -2,7 +2,7 @@
 
 > Data App em Streamlit que analisa Selic, inflação, câmbio e atividade econômica com dados oficiais do Banco Central.
 
-**🔗 App:** [LINK_DO_STREAMLIT] · **🎥 Vídeo:** [LINK_DO_VIDEO] · **📋 Trello:** [LINK_DO_TRELLO]
+**🔗 App:** [[sctec-inteligencia-macroeconomica.streamlit.app](https://sctec-inteligencia-macroeconomica.streamlit.app)] · **🎥 Vídeo:** [LINK_DO_VIDEO] · **📋 Trello:** [[trello.com/b/80Bk0Kbb/projeto-final-sctec-inteligencia-macroeconomica](https://trello.com/b/80Bk0Kbb/projeto-final-sctec-inteligencia-macroeconomica)]
 
 ---
 
@@ -175,7 +175,7 @@ Versionamento em GitFlow: `main` (estável), `develop` (integração) e uma `fea
 
 ## 14. Autoria e créditos
 
-**Sérgio Fonseca Leite Junior** · [LinkedIn](LINK_LINKEDIN) · [GitHub](https://github.com/engsergioleite)
+**Sérgio Fonseca Leite Junior** · [LinkedIn](https://www.linkedin.com/in/sergio-f-leite-jr) · [GitHub](https://github.com/engsergioleite)
 
 Projeto Avaliativo Final – Visualização de Dados e Business Intelligence – SCTEC / SENAI-SC.
 
