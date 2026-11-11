@@ -2,7 +2,7 @@
 
 > Data App em Streamlit que analisa Selic, inflação, câmbio e atividade econômica com dados oficiais do Banco Central.
 
-**🔗 App:** [LINK_DO_STREAMLIT] · **🎥 Vídeo:** [LINK_DO_VIDEO] · **📋 Trello:** [LINK_DO_TRELLO]
+**🔗 App:** [Abrir o app](https://sctec-inteligencia-macroeconomica.streamlit.app) · **🎥 Vídeo:** [LINK_DO_VIDEO] · **📋 Trello:** [Quadro Kanban](https://trello.com/b/80Bk0Kbb/projeto-final-sctec-inteligencia-macroeconomica)
 
 ---
 
@@ -26,13 +26,13 @@ Perguntas de negócio respondidas pelo app:
 
 ## 3. Fonte de dados e licença
 
-| Código SGS | Série                   | Frequência           | Unidade  |
-| ----------- | ------------------------ | --------------------- | -------- |
-| 432         | Meta Selic               | Diária               | % a.a.   |
-| 433         | IPCA mensal              | Mensal                | %        |
-| 13522       | IPCA acumulado 12 meses  | Mensal                | %        |
-| 1           | Dólar comercial (venda) | Diária (dias úteis) | R$/US$ |
-| 24364       | IBC-Br dessazonalizado   | Mensal                | Índice  |
+| Código SGS | Série                   | Frequência           | Unidade          |
+| ----------- | ------------------------ | --------------------- | ---------------- |
+| 432         | Meta Selic               | Diária               | % a.a.           |
+| 433         | IPCA mensal              | Mensal                | %                |
+| 13522       | IPCA acumulado 12 meses  | Mensal                | %                |
+| 1           | Dólar comercial (venda) | Diária (dias úteis) | reais por dólar |
+| 24364       | IBC-Br dessazonalizado   | Mensal                | Índice          |
 
 - **Fonte:** API pública do Sistema Gerenciador de Séries Temporais (SGS) do Banco Central do Brasil.
 - **Período:** 01/01/2019 a 31/12/2023.
@@ -75,7 +75,7 @@ Após a agregação mensal, a base consolidada ficou com 60 meses e nenhum valor
 | selic_meta        | float    | Meta Selic vigente no fim do mês (% a.a.)      | Série 432, último valor do mês                              |
 | ipca_mensal       | float    | Inflação do mês (%)                          | Série 433                                                     |
 | ipca_12m          | float    | Inflação acumulada em 12 meses (%)            | Série 13522                                                   |
-| dolar_ptax        | float    | Dólar médio do mês (R$/US$)                | Série 1, média mensal                                        |
+| dolar_ptax        | float    | Dólar médio do mês (reais por dólar)        | Série 1, média mensal                                        |
 | ibc_br            | float    | Índice de atividade econômica dessazonalizado | Série 24364                                                   |
 | juro_real_ex_post | float    | Juro real efetivo (% a.a.)                      | Fórmula acima                                                 |
 | dolar_var_12m     | float    | Variação do dólar em 12 meses (%)            | Variação contra 12 meses antes; nulo em 2019 por definição |
@@ -98,17 +98,41 @@ Após a agregação mensal, a base consolidada ficou com 60 meses e nenhum valor
 
 ## 7. Principais resultados
 
-1. **Política monetária:** a SELIC foi de 2% a 13,75%, o juro real ficou negativo de meados de 2020 ao inicio de 2022 (20 meses. com mínimo de -4,35% em 2021), e em 2023 chegou a 10,27%.
-2. **Câmbio:** o dólar médio de 2019 a 2023 foi R$5,65 em maio de 2020 e dezembro de 2021, e voltou abaixo da média em abril de 2022 e no meio de 2023.
-3. **Câmbio × inflação:** …
-4. **Atividade:** …
+1. **Política monetária:** a Selic foi de 2% a 13,75%; o juro real ficou negativo de meados de 2020 ao início de 2022 (20 meses, com mínimo de -4,35% em 2021) e em 2023 chegou a 10,27% a.a.
+
+![Política monetária: Selic, IPCA 12M e juro real](docs/img/grafico_politica_monetaria.png)
+
+2. **Câmbio:** o dólar médio de 2019 a 2023 foi de 4,93 reais. Ele ficou acima dessa média em 39 dos 60 meses, a partir de abril de 2020, com picos de cerca de 5,65 reais em maio de 2020 e dezembro de 2021, e voltou abaixo da média em abril de 2022 e no meio de 2023.
+
+![Dólar PTAX e média do período](docs/img/grafico_dolar.png)
+
+3. **Câmbio × inflação:** a correlação de Pearson entre o dólar e o IPCA 12M foi de 0,36, positiva mas fraca. O dólar disparou em 2020, mas a inflação só acelerou com força em 2021, o que sugere uma relação defasada no tempo, e não simultânea. Correlação não implica causalidade.
+4. **Atividade:** entre janeiro de 2019 e dezembro de 2023, o IBC-Br cresceu 8,2%, mesmo atravessando o maior ciclo de alta da Selic do período, com a queda forte concentrada no choque da pandemia, em 2020.
+
+![IBC-Br e ciclos da Selic](docs/img/grafico_ibc_br.png)
+
 5. **Correlações:** os pares mais correlacionados foram Juro real × Selic (0,78), esperado, já que o juro real é calculado a partir da Selic, e Selic × IBC-Br (0,73). Este último reflete uma tendência comum, com recuperação da atividade após a pandemia ao mesmo tempo que a Selic subia, e não indica que juros altos estimulem a economia. O dólar quase não se correlacionou com a Selic (0,04) nem com o IBC-Br (-0,02).
+
+![Correlação de Pearson entre as variáveis](docs/img/grafico_correlacao.png)
+
+**Contexto da pandemia de COVID-19**
+
+As fases da pandemia coincidem com os principais movimentos das séries. O painel mostra essas coincidências no tempo, mas não isola o efeito da pandemia de outros fatores.
+
+| Período      | Fato da pandemia                                                                               | O que aparece nos dados                                                             |
+| ------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Mar/2020      | OMS declara pandemia; estados brasileiros iniciam quarentenas                                  | O dólar passa a ficar acima da média do período a partir de abril de 2020        |
+| Abr–Mai/2020 | Auge das restrições da primeira onda                                                         | Pico do dólar, cerca de 5,65 reais em maio de 2020, e queda mais forte do IBC-Br   |
+| Ago/2020      | Reabertura gradual                                                                             | Selic no mínimo histórico de 2%                                                   |
+| 2º sem./2020 | Retomada da economia com cadeias globais desorganizadas                                        | IPCA em alta e juro real negativo                                                   |
+| Mar–Abr/2021 | Segunda onda; abril de 2021 é o mês mais letal no Brasil, com recorde de 4.249 mortes em 24h | Juro real perto do mínimo do período (-4,35%) e início do ciclo de alta da Selic |
+| 2022          | Fim das restrições                                                                           | Selic chega a 13,75% e o juro real volta a ser positivo                             |
 
 ## 8. Discussão e limitações
 
 - São apenas 60 observações mensais; correlações nessa amostra são instáveis.
 - **Correlação não implica causalidade.** O app mostra associações, não efeitos causais.
-- O choque da pandemia (2020) distorce médias e correlações do período.
+- O choque da pandemia de COVID-19 (quarentenas de 2020 e pico de mortes em abril de 2021) distorce médias e correlações do período, e o painel não isola o efeito da pandemia de outros fatores, como juros globais e preços de commodities.
 - Juro real ex-post usa a inflação passada; não representa o juro real esperado.
 - O IBC-Br é revisado periodicamente pelo BCB.
 - O dólar mensal é uma média; picos diários não aparecem.
@@ -121,7 +145,7 @@ Após a agregação mensal, a base consolidada ficou com 60 meses e nenhum valor
 
 ## 10. Demonstração do Data App
 
-**Link:** [LINK_DO_STREAMLIT]
+**Link:** [Abrir o app](https://sctec-inteligencia-macroeconomica.streamlit.app)
 
 ![Visão geral](docs/img/app_visao_geral.png)
 
@@ -165,8 +189,8 @@ streamlit run app.py
 
 ## 13. Gestão ágil e links do projeto
 
-- **Trello (Kanban):** [LINK_DO_TRELLO]
-- **App em produção:** [LINK_DO_STREAMLIT]
+- **Trello (Kanban):** [Quadro do projeto](https://trello.com/b/80Bk0Kbb/projeto-final-sctec-inteligencia-macroeconomica)
+- **App em produção:** [Abrir o app](https://sctec-inteligencia-macroeconomica.streamlit.app)
 - **Vídeo de apresentação:** [LINK_DO_VIDEO]
 
 ![Quadro do Trello](docs/img/trello.png)
@@ -175,7 +199,7 @@ Versionamento em GitFlow: `main` (estável), `develop` (integração) e uma `fea
 
 ## 14. Autoria e créditos
 
-**Sérgio Fonseca Leite Junior** · [LinkedIn](LINK_LINKEDIN) · [GitHub](https://github.com/engsergioleite)
+**Sérgio Fonseca Leite Junior** · [LinkedIn](https://www.linkedin.com/in/sergio-f-leite-jr) · [GitHub](https://github.com/engsergioleite)
 
 Projeto Avaliativo Final – Visualização de Dados e Business Intelligence – SCTEC / SENAI-SC.
 
@@ -185,7 +209,23 @@ Projeto Avaliativo Final – Visualização de Dados e Business Intelligence –
 - Documentação do Streamlit: https://docs.streamlit.io
 - Documentação do Plotly: https://plotly.com/python
 - Documentação do Supabase: https://supabase.com/docs
+- Correio Braziliense – Brasil bate recorde de 4.249 mortes por covid em 24h (abril de 2021): https://www.correiobraziliense.com.br/brasil/2021/04/4917167-novo-recorde-de-mortesem-apenas-24h-4.html
+- Metrópoles – Abril de 2021 é o mês mais letal da pandemia: https://www.metropoles.com/brasil/abril-ja-registra-mais-de-70-mil-mortes-e-e-mes-mais-letal-da-pandemia
 
-**Uso de Inteligência Artificial no desenvolvimento**
+### Uso de Inteligência Artificial no desenvolvimento
 
-[Descrever com honestidade: quais partes tiveram apoio de IA (ex.: estrutura do código, revisão, texto do README), o que você revisou, testou e adaptou, e o que aprendeu.]
+**O que eu fiz**
+
+- Executei o pipeline de ETL com os dados reais da API do Banco Central e validei o relatório de qualidade.
+- Construí o notebook de análise exploratória com pandas e Plotly e interpretei os resultados das cinco perguntas de negócio, incluindo a identificação de correlação espúria entre Selic e IBC-Br.
+- Criei e configurei o banco PostgreSQL no Supabase, com Row Level Security e credenciais fora do repositório.
+- Publiquei o app no Streamlit Community Cloud, configurei os secrets e organizei a gestão no Trello e no GitHub.
+- Diagnostiquei e corrigi problemas reais: o driver do PostgreSQL alterado na versão nova do SQLAlchemy, os rótulos com cifrão interpretados como fórmula pelo Plotly e o kernel errado do notebook.
+
+**Como usei a IA**
+
+O projeto foi desenvolvido com apoio de IA generativa (Claude, da Anthropic), utilizada como assistente técnico: planejamento das etapas, geração da versão inicial do código do ETL e do Data App, explicação de conceitos e revisão dos textos deste README. Todo o código foi executado, testado e ajustado por mim utilizando a IA como apoio e com os dados reais, e as análises e interpretações dos resultados descritas neste README são de minha autoria com apoio da IA para edição de textos.
+
+**O que aprendi**
+
+Manipulação de dados com pandas, visualização com Plotly, ambientes virtuais, GitFlow, gestão de credenciais, cache no Streamlit, banco de dados na nuvem e a diferença entre correlação e causalidade.
