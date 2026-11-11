@@ -2,7 +2,7 @@
 
 > Data App em Streamlit que analisa Selic, inflação, câmbio e atividade econômica com dados oficiais do Banco Central.
 
-**🔗 App:** [Abrir o app](https://sctec-inteligencia-macroeconomica.streamlit.app) · **🎥 Vídeo:** [LINK_DO_VIDEO] · **📋 Trello:** [Quadro Kanban](https://trello.com/b/80Bk0Kbb/projeto-final-sctec-inteligencia-macroeconomica)
+**🔗 App:** [Abrir o app](https://sctec-inteligencia-macroeconomica.streamlit.app) · **🎥 Vídeo:** [Assistir no YouTube](https://youtu.be/n7ixjzDOpv0) · **📋 Trello:** [Quadro Kanban](https://trello.com/b/80Bk0Kbb/projeto-final-sctec-inteligencia-macroeconomica)
 
 ---
 
